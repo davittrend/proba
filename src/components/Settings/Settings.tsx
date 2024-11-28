@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Bell, Shield, Clock, RefreshCw } from 'lucide-react';
 import { RootState } from '../../store/store';
 import toast from 'react-hot-toast';
 
-export function Settings() {
+export const Settings: FC = () => {
   const { userData } = useSelector((state: RootState) => state.auth);
   const [notifications, setNotifications] = useState({
     pinScheduled: true,
@@ -42,6 +42,20 @@ export function Settings() {
       toast.error('Failed to refresh token. Please try logging in again.');
     }
   };
+
+  // Get available timezones
+  const timezones = [
+    'UTC',
+    'America/New_York',
+    'America/Chicago',
+    'America/Denver',
+    'America/Los_Angeles',
+    'Europe/London',
+    'Europe/Paris',
+    'Asia/Tokyo',
+    'Asia/Shanghai',
+    'Australia/Sydney'
+  ];
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
@@ -104,7 +118,7 @@ export function Settings() {
                 onChange={(e) => setTimezone(e.target.value)}
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500"
               >
-                {Intl.supportedValuesOf('timeZone').map((tz) => (
+                {timezones.map((tz) => (
                   <option key={tz} value={tz}>
                     {tz.replace(/_/g, ' ')}
                   </option>
@@ -137,4 +151,4 @@ export function Settings() {
       </div>
     </div>
   );
-}
+};
