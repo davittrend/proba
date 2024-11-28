@@ -1,11 +1,14 @@
-export const validatePinData = (data: {
+interface PinData {
   title: string;
   description: string;
   imageUrl?: string;
   imageFile?: File;
+  imagePreview?: string;
   boardId: string;
   scheduledTime: string;
-}) => {
+}
+
+export const validatePinData = (data: PinData) => {
   const errors: string[] = [];
 
   if (!data.title?.trim()) {
@@ -21,7 +24,6 @@ export const validatePinData = (data: {
     errors.push('Schedule time is required');
   }
 
-  // Changed image validation to consider both imageUrl and imageFile
   if (!data.imageUrl && !data.imageFile && !data.imagePreview) {
     errors.push('Image is required');
   }
