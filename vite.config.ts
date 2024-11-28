@@ -25,6 +25,8 @@ export default defineConfig({
             extType = 'img';
           } else if (/woff|woff2|eot|ttf|otf/i.test(extType)) {
             extType = 'fonts';
+          } else if (extType === 'css') {
+            extType = 'css';
           }
           return `assets/${extType}/[name]-[hash][extname]`;
         },
